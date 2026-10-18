@@ -56,7 +56,6 @@ Stream live DNS traffic into the engine:
   
 sudo tcpdump -l -n -i any port 53 or port 80 | ./tri_hole_guard --live
 
-if using ./tri_hole_guard and tcpdump in a separate window, the former will respond to "echo", so you can preview a website in terminal, ie, "echo <www.hotmail.com>"
 ---
 
 ## 🌿 Multi-Branch Verification Setup
