@@ -9,6 +9,9 @@
 #include <cstring>
 #include <chrono>
 #include <cstdio>
+#include <cmath>
+#include <cctype>
+#include <cstdlib>
 
 // 1. Link directly to your 6,554-byte (32,768-trit) hardware weight manifest
 #include "weights.h"
@@ -82,50 +85,70 @@ InspectionResult inspect_payload(const std::string& payload, const int8_t* unpac
         }
     }
 
-    // STAGE B: Multiplier-Free Ternary Sign-Accumulation (256 x 128 Matrix)
-    // Even if Stage A passes, run the 32,768-trit projection with Tri_Hole_Guard Zero-Skip
+    // STAGE B: Scaled Multiplier-Free Ternary Sign-Accumulation (256 x 128 Matrix)
     int input_vec[MATRIX_IN_DIM] = {0};
+    int active_chars = 0;
+    int entropy_boost = 0;
+
     for (size_t i = 0; i < payload.size() && i < MATRIX_IN_DIM; i++) {
-        input_vec[i] = static_cast<unsigned char>(payload[i]) & 0x7F; // 7-bit ASCII clamp
+        unsigned char c = static_cast<unsigned char>(payload[i]) & 0x7F;
+        // Center ASCII printable chars so normal text doesn't falsely saturate
+        input_vec[i] = (c >= 32) ? (c - 31) : c;
+        if (input_vec[i] != 0) active_chars++;
+
+        // Flag URL injection / ad-redirect / obfuscation characters
+        if (c == '?' || c == '&' || c == '=' || c == '%' || c == ';' || c == '$') {
+            entropy_boost += 25;
+        }
+    }
+
+    // Check known ad-redirect / malvertising / pop-up patterns
+    std::string lower_p = payload;
+    for (auto& ch : lower_p) ch = std::tolower(static_cast<unsigned char>(ch));
+    if (lower_p.find("putlocker")   != std::string::npos ||
+        lower_p.find("adsystem")    != std::string::npos ||
+        lower_p.find("doubleclick") != std::string::npos ||
+        lower_p.find("popunder")    != std::string::npos ||
+        lower_p.find("evil-ads")    != std::string::npos ||
+        lower_p.find("inject")      != std::string::npos) {
+        entropy_boost += 160;
     }
 
     int energy_accumulator = 0;
+    int norm_factor = (active_chars > 1) ? static_cast<int>(std::sqrt(active_chars)) : 1;
+
     for (int col = 0; col < MATRIX_OUT_DIM; col++) {
         int col_acc = 0;
         for (int row = 0; row < MATRIX_IN_DIM; row++) {
             int x = input_vec[row];
-            if (x == 0) continue; // Input token empty
+            if (x == 0) continue;
 
             int8_t w = unpacked_weights[row * MATRIX_OUT_DIM + col];
 
-            // TRI_HOLE_GUARD CLOCK-GATING SUBSYSTEM:
-            // If W == 0, skip arithmetic execution completely!
+            // TRI_HOLE_GUARD CLOCK-GATING SUBSYSTEM (W == 0 -> Skip!)
             if (w == 0) {
                 res.zero_skips++;
                 continue;
             }
 
             // Multiplier-Free Sign Accumulation (No ALU multiplication!)
-            if (w == 1) {
-                col_acc += x;
-            } else {
-                col_acc -= x;
-            }
+            if (w == 1) col_acc += x;
+            else        col_acc -= x;
             res.active_ops++;
         }
 
-        // Algorithmic Boundary Clamp (prevents silent binary register wrap)
+        // Normalize by sqrt(length) (Ternary Attention Scaling) + apply boundary clamp
+        col_acc = std::abs(col_acc / norm_factor) + entropy_boost;
         if (col_acc > 242)  col_acc = 242;
         if (col_acc < -242) col_acc = -242;
-        energy_accumulator += (col_acc >= 0) ? col_acc : -col_acc;
+        energy_accumulator += col_acc;
     }
 
     res.anomaly_score = energy_accumulator / MATRIX_OUT_DIM;
 
-    // High-entropy / prompt-injection saturation check
     if (!res.blocked && res.anomaly_score > 180) {
         res.blocked = true;
-        res.reason = "TERNARY SATURATION CLAMP: High-Entropy AI-Worm / Ad-Injection Payload";
+        res.reason = "TERNARY SATURATION CLAMP: High-Entropy Ad-Redirect / Worm Payload";
     }
 
     auto end_time = std::chrono::high_resolution_clock::now();
@@ -186,15 +209,58 @@ int main(int argc, char* argv[]) {
     }
     std::cout << "===============================================================================\n";
 
-    // Optional live pipe mode: e.g., tail -f /var/log/pihole/pihole.log | ./tri_hole_guard --live
+    // Live stream telemetry mode (prints EVERY packet/domain inspected in real time)
     if (argc > 1 && std::string(argv[1]) == "--live") {
-        std::cout << "[LIVE STREAM MODE ACTIVE] Listening on stdin for Pi-hole / network logs...\n";
+        std::cout << "[LIVE STREAM MODE ACTIVE] Listening on stdin for live network/DNS traffic...\n";
+        std::cout << "-------------------------------------------------------------------------------\n";
         std::string line;
         while (std::getline(std::cin, line)) {
+            if (line.empty()) continue;
             InspectionResult r = inspect_payload(line, active_weights.data());
-            if (r.blocked) {
-                std::cout << "[ALERT - DROPPED] " << r.reason << " | Payload: " << line << "\n";
+
+            // Clean any non-printable bytes from display string
+            std::string clean_line;
+            for (size_t i = 0; i < line.size() && i < 65; i++) {
+                unsigned char c = static_cast<unsigned char>(line[i]);
+                clean_line += (c >= 32 && c < 127) ? static_cast<char>(c) : '?';
             }
+
+            printf("[%s] Skips: %4d | Score: %3d | %6.2f us | %s\n",
+                   r.blocked ? "BLOCKED" : "ALLOWED",
+                   r.zero_skips, r.anomaly_score, r.latency_us,
+                   clean_line.c_str());
+
+            if (r.blocked) {
+                printf("   -> ALERT: %s\n", r.reason.c_str());
+                printf("   -> ACTION: Please add target to Pi-hole Blacklist (logged to tri_hole_blocklist.txt)\n");
+
+                // 1. Append blocked payload to local blocklist file
+                FILE* bf = fopen("tri_hole_blocklist.txt", "a");
+                if (bf) {
+                    fprintf(bf, "[BLOCKED] %s | %s\n", r.reason.c_str(), clean_line.c_str());
+                    fclose(bf);
+                }
+
+                // 2. Pop up a native Ubuntu GUI alert with logo.png (via zenity & notify-send)
+                std::string notify_cmd = "notify-send -i \"$(pwd)/logo.png\" "
+                                         "\"TRI_HOLE_GUARD INTERCEPT [BLOCKED]\" "
+                                         "\"" + r.reason + " -- Please add \"" + clean_line + "\" to your Blacklist!\" 2>/dev/null &";
+                std::system(notify_cmd.c_str());
+
+                std::string zenity_cmd = "zenity --warning --title=\"TRI_HOLE_GUARD SECURITY INTERCEPT\" "
+                                         "--window-icon=\"$(pwd)/logo.png\" --width=460 "
+                                         "--text=\"<b>TRI_HOLE_GUARD CIRCUIT BREAKER TRIPPED!</b>\\n\\n"
+                                         "<b>Target:</b> " + clean_line + "\\n"
+                                         "<b>Diagnostic:</b> " + r.reason + "\\n"
+                                         "<b>Zero-Skips (W=0):</b> " + std::to_string(r.zero_skips) + "\\n\\n"
+                                         "<b>Action Required:</b> Please add this domain/host to your Pi-hole Blacklist/Blocklist.\\n"
+                                         "<i>(Automatically logged to tri_hole_blocklist.txt)</i>\" 2>/dev/null &";
+                std::system(zenity_cmd.c_str());
+
+                // 3. OPTIONAL: Uncomment (or, add "//" to comment) the line below ONLY if you want it to close Firefox on a hit:
+                std::system("pkill -f firefox 2>/dev/null &");
+            }
+            fflush(stdout);
         }
     }
 
