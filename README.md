@@ -37,17 +37,21 @@ This repository contains the complete open-source primitives required to build, 
 
 ### 👁️ 3. Cross-Modal Ingestion & Data Protocols
 *   `vision_transformer_color.py` — Dual-mode cross-modal frontend vision pipeline. Natively processes Retinex log-reflectance operations to extract illumination-invariant structural signatures, mapping raw frames directly to 128-Trit Matryoshka Semantic Embeddings for fast similarity search.
-  *    Place a .jpg into your working folder named "test_room.jpg". Then run "vision_transformer_color.py" from your working folder.
-  *    Lines 129-133 can be edited to toggle Retinex filter on or off. Just place a "#" next to the option you want off, and remove a "#" for the option you wish to use.  
-` ` `   
+    1. Place a .jpg into your working folder named "test_room.jpg". Then run "vision_transformer_color.py" from your working folder.
+  
+    2. Lines 129-133 can be edited to toggle Retinex filter on or off. Just place a "#" next to the option you want off, and remove a "#" for the option you wish to use.  
+ 
       "#" USE_RETINEX_FILTER = True    # <-- Retinex Log-Illumination Edge Mode
 
           USE_RETINEX_FILTER = False # <-- Uncomment this line for Regular Ternary Photo Mode!
 
-  `  ` `
-For more on REX (Radix plus Retinex) toggling, check out telegra.ph/Gemini-Argon-on-REX-vision-10-18
+
+  3. To learn more on REX (Radix plus Retinex) toggling, check out telegra.ph/Gemini-Argon-on-REX-vision-10-18
+
 
 *   `T_plus_plus_spec.md` — The immutable character serialization dictionary mapping a strict, fixed-width 6-Trit Symbol Envelope across standard ASCII configurations.
+
+`T_plus_plus_spec.md` is the official DSK_Systems_TDK/Dobrya/TinyGemma Ternary definitions dataset. Here, 127 Ascii characters and integers are mapped, with room for -602 more characters to be assigned for special functions in future T++ updates.
 
 ---
 
