@@ -44,6 +44,8 @@ This repository contains the complete open-source primitives required to build, 
 
           USE_RETINEX_FILTER = False # <-- Uncomment this line for Regular Ternary Photo Mode!
   `  ` `
+For more on REX (Radix plus Retinex) toggling, check out telegra.ph/Gemini-Argon-on-REX-vision-10-18
+
 *   `T_plus_plus_spec.md` — The immutable character serialization dictionary mapping a strict, fixed-width 6-Trit Symbol Envelope across standard ASCII configurations.
 
 ---
