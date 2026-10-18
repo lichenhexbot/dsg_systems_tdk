@@ -55,6 +55,7 @@ To compile and execute the bare-metal simulation loop natively on standard commo
 Stream live DNS traffic into the engine:
   
 "sudo tcpdump -l -n -i any port 53 | ./tri_hole_guard --live"
+
 or, if you prefer, run separately. "./tri_hole_guard --live"
 
 
