@@ -45,27 +45,37 @@ This repository contains the complete open-source primitives required to build, 
 
 To compile and execute the bare-metal simulation loop natively on standard commodity ARMv8-A (e.g., a Raspberry Pi edge node) or open RISC-V vector microarchitectures under maximum optimization, execute:
 
-```bash
-# Compile the bare-metal unpacking interpreter
-g++ -O3 unpacker.cpp -o dsg_sentinel_bridge
+### `CPPBLOCKED` (Passive Telemetry & Alert Mode — Non-Disruptive)
 
-# Stream parameters and initialize the multiplier-free canvas
-./dsg_sentinel_bridge --model nano_weights.bin
-```
+1. Place `weights.h` in the same folder as `unpacker.cpp`.
+2. Compile with maximum optimization:
+   ```bash
+   g++ -O3 unpacker.cpp -o tri_hole_guard
 
+Stream live DNS traffic into the engine:
+
+sudo tcpdump -l -n -i any port 53 | ./tri_hole_guard --live
+
+if using ./tri_hole_guard and tcpdump in a separate window, the former will respond to "echo", so you can preview a website in terminal, ie, "echo <www.hotmail.com>"
 ---
 
 ## 🌿 Multi-Branch Verification Setup
 To accommodate varying research, development, and testing methodologies, this repository maintains separate file branches to switch between runtime enforcement profiles:
 
 1.  **`main` Branch (Production Shield):** Contains the hardened, absolute zero-trust configuration of Tri_Hole_Guard. All unvetted or out-of-bounds streams are forcefully blocked at the silicon register entry point.
-2.  **`zenity-demo` Branch (Interactive Verification):** Implements thresholding rules paired with native Linux graphical warnings. To observe active clock-gating resets, sign-inversions, and automated process-breaker alerts visually on your desktop environment, pull and build the demo branch:
-    ```bash
-    git checkout zenity-demo
-    g++ -O3 unpacker.cpp -o dsg_interactive_bridge
-    ./dsg_interactive_bridge --model nano_weights.bin
-    ```
+2.  **`zenity-demo` Branch (Interactive Verification):** Implements thresholding rules paired with native Linux graphical warnings. To observe active clock-gating resets, sign-inversions, and automated process-breaker alerts visually on your desktop environment, pull and build the demo branch, same as above:
+   . Place `weights.h` in the same folder as `unpacker.cpp`.
+2. Compile with maximum optimization:
+   ```bash
+   g++ -O3 unpacker.cpp -o tri_hole_guard
 
+Stream live DNS traffic into the engine:
+
+sudo tcpdump -l -n -i any port 53 | ./tri_hole_guard --live
+
+NOTE: THIS VERSION WILL CLOSE ALL TABS OF MOZILLA BROWSER, IF THE EMULATION IS TESTED, OR AN ATTACK NOTICED. PLEASE SAVE YOUR WORK AND PROCEED ACCORDINGLY!
+
+More information about "Skips" and "Scores", here: https://telegra.ph/Skips-And-Scores-a-chat-with-Gemini-Argon-10-18
 ---
 
 ## ⚖️ Intellectual Property, Protection, & Disclosures
