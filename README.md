@@ -41,6 +41,7 @@ This repository contains the complete open-source primitives required to build, 
   *    Lines 129-133 can be edited to toggle Retinex filter on or off. Just place a "#" next to the option you want off, and remove a "#" for the option you wish to use.  
 ` ` `   
       "#" USE_RETINEX_FILTER = True    # <-- Retinex Log-Illumination Edge Mode
+
           USE_RETINEX_FILTER = False # <-- Uncomment this line for Regular Ternary Photo Mode!
   `  ` `
 *   `T_plus_plus_spec.md` — The immutable character serialization dictionary mapping a strict, fixed-width 6-Trit Symbol Envelope across standard ASCII configurations.
