@@ -43,6 +43,7 @@ This repository contains the complete open-source primitives required to build, 
       "#" USE_RETINEX_FILTER = True    # <-- Retinex Log-Illumination Edge Mode
 
           USE_RETINEX_FILTER = False # <-- Uncomment this line for Regular Ternary Photo Mode!
+
   `  ` `
 For more on REX (Radix plus Retinex) toggling, check out telegra.ph/Gemini-Argon-on-REX-vision-10-18
 
