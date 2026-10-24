@@ -1,5 +1,9 @@
 # =========================================================================
-# Copyright 2026 Jill M. Goodridge, d/b/a Dobrya-Sydney-Gleeman (DSG) Systems
+# * Copyright 2026 Dobrya-Sydney-Gleeman (DSG) Systems 
+# * ORCID iD: https://orcid.org/0009-0009-1955-4285
+# * www.flamingotangostudios.com
+# * 
+# 
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
