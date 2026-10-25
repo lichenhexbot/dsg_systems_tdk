@@ -137,3 +137,9 @@ All physical hardware substrate paths, multi-rail logic gates, clock-gating circ
 This model suite is a derivative work of the Google Gemma architecture. This distribution is strictly bound by and subject to the official **Gemma Terms of Use** https://gemma.ai/resources/terms/ and the **Gemma Prohibited Use Policy** http://gemma.ai/resources/prohibited_use_policy. 
 
 The base model weight definitions for the "Dobrya" (TinyGemma / TernaryDiffusionGemma) architecture are derived utilizing parameters from the Google Gemma family. In accordance with open licensing frameworks, all secondary software optimization primitives are disseminated under the Apache License 2.0.
+
+---
+
+## ⚖️ Financial Governance & Disclosures
+To review our explicit corporate stance on digital asset compliance, independent crowdfunding channels, and our total restriction against speculative token promotions, please consult our official [Financial Statement](FINANCIAL_STATEMENT.md) ledger.
+
