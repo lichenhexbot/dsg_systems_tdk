@@ -94,7 +94,7 @@ sudo tcpdump -l -n -i any port 53 | ./tri_hole_guard --live
 NOTE: THIS VERSION WILL CLOSE ALL TABS OF MOZILLA BROWSER, IF THE EMULATION IS TESTED, OR AN ATTACK NOTICED. PLEASE SAVE YOUR WORK AND PROCEED ACCORDINGLY!
 
 ---
-About tri_hole_guard "Skips" and "Scores":
+**About tri_hole_guard "Skips" and "Scores":**
 
 🛡️ Understanding "Skips" and "Scores" in Tri_Hole_Guard:
 
