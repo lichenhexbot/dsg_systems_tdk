@@ -9,3 +9,6 @@ This statement is being made to avoid the risk of "supply" for a meme coin being
 
 
 ---
+
+## ⚖️ Financial Governance & Disclosures
+To review our explicit corporate stance on digital asset compliance, independent crowdfunding channels, and our total restriction against speculative token promotions, please consult our official [Financial Statement](FINANCIAL_STATEMENT.md) ledger.
