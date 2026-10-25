@@ -101,6 +101,7 @@ NOTE: THIS VERSION WILL CLOSE ALL TABS OF MOZILLA BROWSER, IF THE EMULATION IS T
 Tri_hole_guard is not meant to replace the traditional Pi-Hole, but to work with it, an an extra layer which provides metrics about possible anomalous activity.
 
 When you run the tri_hole_guard live network emulation, the terminal outputs two critical metrics for every processed packet: Skips and Scores. Here is exactly what is happening under the hood:
+
 ⏩ 1. Zero-Skips (Hardware Efficiency)
 
 In a traditional AI model, parameters are high-precision floating-point numbers (like 0.00314). Even if a number is incredibly close to zero, the CPU still has to execute a heavy, power-hungry multiplication operation.
