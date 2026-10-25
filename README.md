@@ -94,7 +94,36 @@ sudo tcpdump -l -n -i any port 53 | ./tri_hole_guard --live
 NOTE: THIS VERSION WILL CLOSE ALL TABS OF MOZILLA BROWSER, IF THE EMULATION IS TESTED, OR AN ATTACK NOTICED. PLEASE SAVE YOUR WORK AND PROCEED ACCORDINGLY!
 
 ---
+About tri_hole_guard "Skips" and "Scores":
+
+🛡️ Understanding "Skips" and "Scores" in Tri_Hole_Guard:
+
+Tri_hole_guard is not meant to replace the traditional Pi-Hole, but to work with it, an an extra layer which provides metrics about possible anomalous activity.
+
+When you run the tri_hole_guard live network emulation, the terminal outputs two critical metrics for every processed packet: Skips and Scores. Here is exactly what is happening under the hood:
+⏩ 1. Zero-Skips (Hardware Efficiency)
+
+In a traditional AI model, parameters are high-precision floating-point numbers (like 0.00314). Even if a number is incredibly close to zero, the CPU still has to execute a heavy, power-hungry multiplication operation.
+
+Because Dobrya is a 1.58-bit Ternary model, our weights are restricted to exactly three states: -1, 0, or +1.
+When the system encounters a weight of 0, multiplying the input by zero will always equal zero. Instead of doing the math, Tri_Hole_Guard triggers a Zero-Skip—it intentionally bypasses the CPU's Arithmetic Logic Unit (ALU) entirely and jumps to the next instruction.
+
+What it means for you: A high "Skip" count means the model is automatically clock-gating the hardware, saving massive amounts of power, reducing thermal heat, and processing the packet in microseconds.
+
+🚨 2. Anomaly Scores (Threat Detection)
+
+The Score is the ultimate threat-level calculation of the incoming data payload.
+Instead of just checking a static list of bad websites, the incoming text (like a DNS request or a browser URL) is mathematically pushed through the 2.6M ternary neural matrix via additive accumulation.
+
+    Low Scores (e.g., 0-50): Standard, human-readable web traffic and benign DNS pings pass through the matrix cleanly.
+    High Scores (e.g., 180+): Malicious payloads—such as zero-click AI worms, high-entropy ad-tracking strings, buffer-overflow attempts, or obfuscated URL injections (lots of %, =, ?, and invisible UTF-8 characters)—cause the mathematical matrix to rapidly saturate.
+
+When the accumulator detects this mathematical saturation, the Score spikes. If it crosses the safety threshold (180), the Tri_Hole_Guard Circuit Breaker trips, forcefully blocking the payload and alerting the user before the exploit can reach the local execution stack.
+
+
 for more information about "Skips and "Scores", check out telegra.ph/Skips-And-Scores-a-chat-with-Gemini-argon-10-18
+
+
 
 
 ---
