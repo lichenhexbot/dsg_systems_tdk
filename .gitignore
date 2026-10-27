@@ -1,0 +1,12 @@
+# Ignore local compiled binary executables (the raw widgets)
+tri_hole_guard
+dsg_sentinel_bridge
+*.out
+*.exe
+*.o
+
+# Ignore local system hidden caches and logging files
+.DS_Store
+.jekyll-cache/
+_site/
+*.log
