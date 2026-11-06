@@ -49,9 +49,9 @@ This repository contains the complete open-source primitives required to build, 
   3. To learn more on REX (Radix plus Retinex) toggling, check out telegra.ph/Gemini-Argon-on-REX-vision-10-18
 
 
-*   `T_plus_plus_spec.md` — The immutable character serialization dictionary mapping a strict, fixed-width 6-Trit Symbol Envelope across standard ASCII configurations.
+*   `T_Plus_Plus_Spec_1.1.CSV` — The immutable character serialization dictionary mapping a strict, fixed-width 6-Trit Symbol Envelope across standard ASCII configurations.
 
-`T_plus_plus_spec.md` is the official DSK_Systems_TDK/Dobrya/TinyGemma Ternary definitions dataset. Here, 127 Ascii characters and integers are mapped, with room for -602 more characters to be assigned for special functions in future T++ updates.
+`T_Plus_Plus_Spec_1.1.CSV` is the official DSK_Systems_TDK/Dobrya/TinyGemma Ternary definitions dataset. Here, 127 Ascii characters and integers are mapped, with room for -601 more characters to be assigned for special functions in future T++ updates.
 
 ---
 
@@ -129,7 +129,7 @@ for more information about "Skips and "Scores", check out telegra.ph/Skips-And-S
 ## ⚖️ Intellectual Property, Protection, & Disclosures
 Following the successful formal registration of our priority micro-patent protections with the United States Patent and Trademark Office (**U.S. Patent Application No. 64/177,716**, October 2026), the software source primitives contained in this repository are disseminated openly under the permissive terms of the **Apache License 2.0**. 
 
-All physical hardware substrate paths, multi-rail logic gates, clock-gating circuit breaker schematics, and extended -602 macro-gating configurations remain fully protected and tightly governed under the copyleft terms of the **CERN Open Hardware License v2 - Strongly Reciprocal (CERN-OHL-S)**. 
+All physical hardware substrate paths, multi-rail logic gates, clock-gating circuit breaker schematics, and extended -601 macro-gating configurations remain fully protected and tightly governed under the copyleft terms of the **CERN Open Hardware License v2 - Strongly Reciprocal (CERN-OHL-S)**. 
 
 ---
 
