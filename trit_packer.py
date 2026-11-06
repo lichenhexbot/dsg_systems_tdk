@@ -1,9 +1,8 @@
 # =========================================================================
 # * Copyright 2026 Dobrya-Sydney-Gleeman (DSG) Systems 
-# * ORCID iD: https://orcid.org/0009-0009-1955-4285
-# * www.flamingotangostudios.com
+# * ORCID iD: https://orcid.org
+# * ://flamingotangostudios.com
 # * 
-# 
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,10 +27,10 @@
 # =========================================================================
 
 # ====================================================================
-# 1.58-Bit Weight Compression Engine (The 5-to-1 Trit-Packer)
+# 1.58-Bit Weight Compression Engine (The 5-to-1 Trit-Packer) - v1.1
 # ====================================================================
 import torch
-import math
+
 def pack_ternary_tensor(ternary_tensor):
     """
     Takes a tensor containing only values of -1, 0, or +1.
@@ -47,16 +46,17 @@ def pack_ternary_tensor(ternary_tensor):
     
     packed_bytes = bytearray()
     
-    print(f"📦 Commencing Bit-Packing Optimization Matrix...")
+    print(f"📦 Commencing Bit-Packing Optimization Matrix (v1.1)...")
     print(f"   Original parameter sequence length: {total_elements} elements")
     
     # 2. Iterate through the stream in chunks of 5
     for i in range(0, total_elements, 5):
         chunk = unsigned_trits[i:i+5]
         
-        # If the final chunk is incomplete, pad it out with zeros (neutral state)
+        # FIXED (v1.1): If final chunk is incomplete, pad it out with ones (Neutral / 0 trit state)
+        # Using 1 translates back to a 0 trit, preventing unwanted -1 insertions
         if len(chunk) < 5:
-            padding = torch.zeros(5 - len(chunk), dtype=torch.long)
+            padding = torch.ones(5 - len(chunk), dtype=torch.long)
             chunk = torch.cat([chunk, padding])
             
         # Compress base-3 array into a standard base-10 byte configuration:
@@ -75,10 +75,10 @@ def pack_ternary_tensor(ternary_tensor):
 
 def run_compression_demo():
     print("===============================================================================")
-    print("⚙️  TERNARY PARAMETER DENSITY PACKING & OPTIMIZATION CORE")
+    print("⚙️  TERNARY PARAMETER DENSITY PACKING & OPTIMIZATION CORE (v1.1)")
     print("===============================================================================")
     
-    # Simulate a trained output layer matrix from our 4.62M Parameter model
+    # Simulate a trained output layer matrix from our 2.6M Parameter model
     # Shape [256, 128] = 32,768 weights total
     print("Simulating trained neural weight matrix...")
     mock_weight_matrix = torch.randn(256, 128)
