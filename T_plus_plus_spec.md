@@ -26,7 +26,7 @@
  * =========================================================================
  */
 
-# T++ Data Language Specification v1.0
+# T++ Data Language Specification v1.1
 ## Balanced 6-Trit Positional Serialization Protocol for Multiplier-Free Substrates
 
 This document defines the official data layout, encoding rules, and character map definitions for **T++**, the full-stack data serialization language engineered for the **Dobrya-Sydney-Gleeman (DSG) Systems** edge ecosystem. 
