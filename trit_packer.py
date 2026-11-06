@@ -1,6 +1,6 @@
 # =========================================================================
 # * Copyright 2026 Dobrya-Sydney-Gleeman (DSG) Systems 
-# * ORCID iD: https://orcid.org
+# * ORCID iD: https://orcid.org/0009-0009-1955-4285  
 # * ://flamingotangostudios.com
 # * 
 # 
