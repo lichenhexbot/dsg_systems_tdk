@@ -27,7 +27,7 @@ Welcome to the public-facing deployment toolkit for **TernaryDiffusionGemma 2.6M
 This repository contains the complete open-source primitives required to build, optimize, and simulate the multiplier-free ternary execution loop:
 
 ### 💻 1. Core Software & Firmware Interface Modules
-*   `unpacker.cpp` — Bare-metal, maximum-optimization C++ execution bridge that converts compressed radix-3 data arrays into lightning-fast conditional branch loops.
+*   NEW! 1.1 `tri_hole_guard.cpp` — Bare-metal, maximum-optimization C++ execution bridge that converts compressed radix-3 data arrays into lightning-fast conditional branch loops.
 *   `weights.h` — Static C++ structural header mapping active tensor parameters and vocabulary array configurations directly to hardware register channels.
 *   `nano_weights.bin` — The ultra-compact, fully-quantized 2.6M model brain file. Restricted to base-3 bounds, the entire payload is compressed by **~95%** down to a microscopic **~520 KB**, residing entirely within local CPU L3 cache windows.
 
@@ -37,6 +37,7 @@ This repository contains the complete open-source primitives required to build, 
 
 ### 👁️ 3. Cross-Modal Ingestion & Data Protocols
 *   `vision_transformer_color.py` — Dual-mode cross-modal frontend vision pipeline. Natively processes Retinex log-reflectance operations to extract illumination-invariant structural signatures, mapping raw frames directly to 128-Trit Matryoshka Semantic Embeddings for fast similarity search.
+   
     1. Place a .jpg into your working folder named "test_room.jpg". Then run "vision_transformer_color.py" from your working folder.
   
     2. Lines 129-133 can be edited to toggle Retinex filter on or off. Just place a "#" next to the option you want off, and remove a "#" for the option you wish to use.  
@@ -49,19 +50,24 @@ This repository contains the complete open-source primitives required to build, 
   3. To learn more on REX (Radix plus Retinex) toggling, check out telegra.ph/Gemini-Argon-on-REX-vision-10-18
      
 
-*  `T_Plus_Plus_Spec_1.1.CSV` is the official DSK_Systems_TDK/Dobrya/TinyGemma Ternary definitions dataset. Here, 128 Ascii characters and integers are mapped, with fixed-width 6-Trit Symbol Envelope across standard ASCII and room for -601 more characters to be assigned for special functions in future T++ updates. 
+*  `T_Plus_Plus_Spec_1.1.CSV` is the official DSK_Systems_TDK/Dobrya/TinyGemma Ternary definitions dataset. Here, 128 Ascii characters and integers are mapped, (0-127) with fixed-width 6-Trit Symbol Envelope across standard ASCII and room for -601 more characters to be assigned for special functions in future T++ updates. 
 ---
 
 ## 🚀 Quick Start: Deploying the Edge Sandbox Bridge
 
-To compile and execute the bare-metal simulation loop natively on standard commodity ARMv8-A (e.g., a Raspberry Pi edge node) or open RISC-V vector microarchitectures under maximum optimization, execute:
+To compile and execute the bare-metal simulation loop natively on standard commodity ARMv8-A (e.g., a Raspberry Pi edge node) or open RISC-V vector micro-architectures under maximum optimization, execute:
 
-### `CPPBLOCKED` (Passive Telemetry & Alert Mode — Non-Disruptive)
 
-1. Place `weights.h` in the same folder as `unpacker.cpp`.
+### `tri_hole_guard.cpp` (Passive Telemetry & Alert Mode — Non-Disruptive)
+
+1. Place `weights.h` in the same folder as `tri_hole_guard.cpp`.
 2. Compile with maximum optimization:
    ```bash
-   g++ -O3 unpacker.cpp -o tri_hole_guard
+   g++ -O3 tri_hole_guard -o tri_hole_guard
+
+then:
+
+./tri_hole_guard
 
 Stream live DNS traffic into the engine:
   
@@ -78,7 +84,7 @@ if using ./tri_hole_guard and tcpdump in a separate window, the former will resp
 To accommodate varying research, development, and testing methodologies, this repository maintains separate file branches to switch between runtime enforcement profiles:
 
 1.  **`main` Branch (Production Shield):** Contains the hardened, absolute zero-trust configuration of Tri_Hole_Guard. All unvetted or out-of-bounds streams are forcefully blocked at the silicon register entry point.
-2.  **`zenity-demo` Branch (Interactive Verification):** Implements thresholding rules paired with native Linux graphical warnings. To observe active clock-gating resets, sign-inversions, and automated process-breaker alerts visually on your desktop environment, pull and build the demo branch, same as above:
+2.  **DEPRECATED - DEMO ONLY, 11-6-26** **`zenity-demo` Branch (Interactive Verification):** Implements thresholding rules paired with native Linux graphical warnings. To observe active clock-gating resets, sign-inversions, and automated process-breaker alerts visually on your desktop environment, pull and build the demo branch, same as above:
    . Place `weights.h` in the same folder as `unpacker.cpp`.
 2. Compile with maximum optimization:
    ```bash
