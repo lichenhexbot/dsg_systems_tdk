@@ -1,3 +1,6 @@
+***DEMO ONLY***, as of November 7, 2026, this branch is deprecated.
+The old weights are included for its use to demonstrate the pop-ups, but the logic has been re-written from "torch_zeros" to "torch_ones."
+
 If using CPPBLOCKED branch, all websites have Radix risk applied to them.
 If using CPPALLOWED (ZENITH-DEMO) branch, it has the testing feature:
 
