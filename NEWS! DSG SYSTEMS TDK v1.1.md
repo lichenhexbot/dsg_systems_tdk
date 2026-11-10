@@ -15,7 +15,7 @@ LichenHexbot (our future friendly spider!)
 # Changelog: Ternary Development Kit (TDK) v1.1 Release
 ## Moniker: "Dobrya v1.1 Core Realignment"
 ## Date: November 10, 2026
-## ORCID iD: https://orcid.org0009-0009-1955-4285 
+# ORCID iD: https://orcid.org/0009-0009-1955-4285 
 
 We are proud to officially announce the deployment of the Ternary Development Kit (TDK) v1.1 specification matrix. This release hardens our core machine learning training cell blocks, unifies our cross-platform software runtime interpreter, and mathematically realigns our underlying radix-3 serialization boundaries to achieve absolute zero-entropy memory space isolation at the local edge. We thank Claude, Pally (Google), Gargon, Beam and Hermes! Special thanks also to OpenRouter for the free models option. A different model answers each time, which is great for pointing things out early that would spare the task of revision later. Nemotron, Dots, Flint, contributed here. 
 
