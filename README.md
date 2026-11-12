@@ -48,7 +48,8 @@ This repository contains the complete open-source primitives required to build, 
 
 
   3. To learn more on REX (Radix plus Retinex) toggling, check out telegra.ph/Gemini-Argon-on-REX-vision-10-18
-     
+
+  ADDED: 11-12-26: "test_room.jpg," Our first and favorite example, "Space Junk Orbiting Earth" (on Science Photo Library and Science Photo Gallery) Full Credit: Mark Garlick / Science Photo Library / Getty Images
 
 *  `T_Plus_Plus_Spec_1.1.CSV` is the official DSK_Systems_TDK/Dobrya/TinyGemma Ternary definitions dataset. Here, 128 Ascii characters and integers are mapped, (0-127) with fixed-width 6-Trit Symbol Envelope across standard ASCII and room for -601 more characters to be assigned for special functions in future T++ updates. 
 ---
